@@ -13,9 +13,10 @@ const App = () => {
   const fetchRandomCat = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('https://api.thecatapi.com/v1/images/search?has_breeds=1');
+      const response = await axios.get('/v1/images/search?has_breeds=1');
       const catId = response.data[0].id;
-      fetchCatDetails(catId);
+      const catDetails = await fetchCatDetails(catId);
+      setCatData([catDetails]);
     } catch (error) {
       console.error('Error fetching random cat:', error);
     } finally {
@@ -24,14 +25,11 @@ const App = () => {
   };
 
   const fetchCatDetails = async (id) => {
-    setLoading(true);
     try {
-      const response = await axios.get(`https://api.thecatapi.com/v1/images/${id}`);
-      setCatData([response.data]);
+      const response = await axios.get(`/v1/images/${id}`);
+      return response.data; // return the fetched data
     } catch (error) {
       console.error('Error fetching cat details:', error);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -64,13 +62,13 @@ const SharedCatView = ({ fetchCatDetails }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
       try {
-        await fetchCatDetails(id);
+        const data = await fetchCatDetails(id); // get the fetched data
+        setCatData([data]); // update the local state with the fetched data
       } catch (error) {
         console.error('Error fetching cat details:', error);
       } finally {
-        setLoading(false);
+        setLoading(false); // set loading to false after data is fetched
       }
     };
 
