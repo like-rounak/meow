@@ -1,3 +1,7 @@
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
 .App {
   text-align: center;
   font-family: Arial, sans-serif;
@@ -33,30 +37,83 @@ button:hover {
   opacity: 0.8;
 }
 
+.table-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
 table {
-  width: 80%;
-  margin: 20px auto;
+  width: 45%;
+  margin: 20px;
   border-collapse: collapse;
 }
 
 th, td {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 12px;
+  text-align: left;
 }
 
-img {
-  max-width: 100%;
+th {
+  background-color: #f4f4f4;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
 }
 
 .card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   border: 1px solid #ddd;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px;
   padding: 20px;
-  margin: 20px auto;
-  max-width: 400px;
+  background-color: #f9f9f9;
 }
 
-.card img {
+.card-column {
+  flex: 1;
+  margin: 10px;
+}
+
+.image-column img {
+  max-width: 100%;
   border-radius: 10px;
+}
+
+.scores-column .score-bar {
+  display: inline-block;
+  width: 50px;
+  height: 20px;
+  background-color: #4caf50;
+  color: white;
+  text-align: center;
+  line-height: 20px;
+  border-radius: 10px;
+}
+
+.share-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.share-button a {
+  color: white;
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+.share-button:hover {
+  background-color: #0056b3;
 }
