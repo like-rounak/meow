@@ -13,7 +13,7 @@ const App = () => {
   const fetchRandomCat = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('/v1/images/search?has_breeds=1');
+      const response = await axios.get('https://api.thecatapi.com/v1/images/search?has_breeds=1');
       const catId = response.data[0].id;
       const catDetails = await fetchCatDetails(catId);
       setCatData([catDetails]);
@@ -26,7 +26,7 @@ const App = () => {
 
   const fetchCatDetails = async (id) => {
     try {
-      const response = await axios.get(`/v1/images/${id}`);
+      const response = await axios.get(`https://api.thecatapi.com/v1/images/${id}`);
       return response.data; // return the fetched data
     } catch (error) {
       console.error('Error fetching cat details:', error);
