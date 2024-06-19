@@ -1,18 +1,29 @@
-import React from 'react';
-import './CatTable.css';
+import React, { useState } from 'react';
+import styles from './table.css';
+import { generateShareableLink } from './sharelink';
+
 
 const CatTable = ({ catData }) => {
+  const [sharePopup, setSharePopup] = useState(false);
+  const [shareLink, setShareLink] = useState('');
+
+  const handleShare = (id) => {
+    const link = generateShareableLink(id);
+    setShareLink(link);
+    setSharePopup(true);
+  };
+
   const renderScore = (score) => {
     return (
-      <div className="score-bar">
-        <div className="score-fill" style={{ width: `${score * 20}%` }}></div>
+      <div className={styles.scoreBar}>
+        <div className={styles.scoreFill} style={{ width: `${score * 20}%` }}></div>
         <span>{score}</span>
       </div>
     );
   };
 
   return (
-    <div className="table-container">
+    <div className={styles.tableContainer}>
       <table>
         <thead>
           <tr>
@@ -50,7 +61,6 @@ const CatTable = ({ catData }) => {
       <table>
         <thead>
           <tr>
-            {/* <th>Name</th> */}
             <th>Adaptability</th>
             <th>Affection Level</th>
             <th>Child Friendly</th>
@@ -77,7 +87,6 @@ const CatTable = ({ catData }) => {
         <tbody>
           {catData.map((cat) => (
             <tr key={cat.id}>
-              {/* <td>{cat.breeds[0].name}</td> */}
               <td>{renderScore(cat.breeds[0].adaptability)}</td>
               <td>{renderScore(cat.breeds[0].affection_level)}</td>
               <td>{renderScore(cat.breeds[0].child_friendly)}</td>
@@ -102,7 +111,17 @@ const CatTable = ({ catData }) => {
             </tr>
           ))}
         </tbody>
-      </table>
+        </table>
+      <button className={styles.shareButton} onClick={() => handleShare(catData[0].id)}>Share</button>
+      {sharePopup && (
+        <div className={styles.popup}>
+          <div className={styles.popupContent}>
+            <h2>Shareable Link</h2>
+            <p>{shareLink}</p>
+            <button onClick={() => setSharePopup(false)}>Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

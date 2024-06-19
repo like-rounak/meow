@@ -1,18 +1,14 @@
 import React, { useState } from 'react';
-import './CatCard.css';
+import './card.css';
 import { FaShareAlt } from 'react-icons/fa';
+import { generateShareableLink } from './sharelink';
 
 const CatCard = ({ catData }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [shareLink, setShareLink] = useState('');
 
-  const generateShareLink = (catId) => {
-    const currentUrl = window.location.href.split('?')[0];
-    return `${currentUrl}?catId=${catId}`;
-  };
-
-  const handleShareClick = (catId) => {
-    const link = generateShareLink(catId);
+  const handleShareClick = (id) => {
+    const link = generateShareableLink(id);
     setShareLink(link);
     setShowPopup(true);
   };
